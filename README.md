@@ -1,6 +1,6 @@
 ---
 Title: "Java OOP Concepts with Examples"
-Author: "ChatGPT", @theFlyingRaijin
+Author: "ChatGPT, @theFlyingRaijin"
 Date: "2025-02-18"
 ---
 
