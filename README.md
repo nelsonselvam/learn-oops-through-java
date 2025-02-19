@@ -1,7 +1,7 @@
 ---
-title: "Java OOP Concepts with Examples"
-author: "ChatGPT"
-date: "2025-02-18"
+Title: "Java OOP Concepts with Examples"
+Author: "ChatGPT", @theFlyingRaijin
+Date: "2025-02-18"
 ---
 
 # Java OOP Concepts with Examples
