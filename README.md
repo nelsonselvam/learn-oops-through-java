@@ -23,6 +23,23 @@ This document provides a comprehensive overview of core Object-Oriented Programm
 8. [The `final` Keyword](#the-final-keyword)
 
 
+## OOP Concepts in Java - Summary Table
+
+| **OOP Concept**       | **Explanation**                                                                 | **Achieved in Java By**                                                                 |
+|------------------------|----------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
+| **Class**             | Blueprint for creating objects that encapsulate data and behavior               | Using the `class` keyword                                                               |
+| **Object**            | Instance of a class; represents a real-world entity                            | Instantiated using the `new` keyword                                                    |
+| **Encapsulation**     | Hiding internal state and requiring access through methods                     | `private` fields + `public` getter/setter methods                                       |
+| **Inheritance**       | One class inherits properties and behaviors from another class                 | Using the `extends` keyword for classes                                                 |
+| **Polymorphism**      | One interface, many implementations (same method behaves differently)          | Method **overloading** and **overriding**, dynamic method dispatch                      |
+| **Abstraction**       | Hiding implementation details and showing only essential features              | Using **abstract classes** (`abstract` keyword) and **interfaces** (`interface` keyword)|
+| **Method Overloading**| Compile-time polymorphism; multiple methods with the same name but different parameters | Defining multiple methods in the same class with different signatures                   |
+| **Method Overriding** | Run-time polymorphism; subclass provides specific implementation              | Using `@Override` annotation and redefining parent methods in child classes             |
+| **Composition**       | Strong "has-a" relationship; contained object cannot exist without the container| Declaring other class objects as fields and instantiating them inside the class         |
+| **Aggregation**       | Weak "has-a" relationship; contained object can exist independently            | Passing objects as parameters or initializing via constructors                          |
+| **Constructor**       | Special method to initialize object state at creation                          | Defining a method with the same name as the class and no return type                    |
+| **`final` Keyword**   | Restricts modification to classes, methods, or variables                       | Using `final` before variables, methods, or classes                                     |
+
 ---
 
 ## 1. Classes and Objects
