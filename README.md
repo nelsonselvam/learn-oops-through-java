@@ -46,34 +46,6 @@ This document provides a comprehensive overview of core Object-Oriented Programm
 **Concept:**
 A *class* is a blueprint for creating objects. It defines the object's state (attributes) and behavior (methods). An *object* is an instance of a class.
 
-**Example:**
-
-```java
-public class Car {
-    // Attributes
-    private String model;
-    private int year;
-    
-    // Constructor
-    public Car(String model, int year) {
-        this.model = model;
-        this.year = year;
-    }
-    
-    // Method to display car information
-    public void displayInfo() {
-        System.out.println("Model: " + model + ", Year: " + year);
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        Car myCar = new Car("Toyota", 2020);
-        myCar.displayInfo();
-    }
-}
-```
-
 ## 2. Encapsulation
 
 **Concept:**  
@@ -83,28 +55,43 @@ Encapsulation involves bundling data (attributes) and methods (behavior) into a 
 
 ```java
 
-public class Employee {
-    // Private attributes
-    private String name;
-    private double salary;
-    
-    // Getter and Setter methods to access and modify the attributes
-    public String getName() {
-        return name;
+public class FinancialAccount {
+    // Private attributes are "encapsulated" within the class.
+    private String accountId;
+    private double balance;
+
+    // Public constructor
+    public FinancialAccount(String accountId, double initialBalance) {
+        this.accountId = accountId;
+        // Use the setter to enforce rules during creation
+        this.setBalance(initialBalance);
     }
-    
-    public void setName(String name) {
-        this.name = name;
+
+    // Public "getter" method to safely expose the balance
+    public double getBalance() {
+        return this.balance;
     }
-    
-    public double getSalary() {
-        return salary;
+
+    // Public "setter" method provides controlled access to modify the balance
+    public void setBalance(double newBalance) {
+        if (newBalance >= 0) {
+            this.balance = newBalance;
+        } else {
+            // Protects the integrity of the object's state
+            System.out.println("Error: Balance cannot be negative.");
+        }
     }
-    
-    public void setSalary(double salary) {
-        this.salary = salary;
+
+    public String getAccountId() {
+        return this.accountId;
     }
 }
+
+// How it's used:
+// FinancialAccount myAccount = new FinancialAccount("ACC123", 500.00);
+// System.out.println(myAccount.getBalance()); // Output: 500.0
+// myAccount.setBalance(-100.00); // Output: Error: Balance cannot be negative.
+// System.out.println(myAccount.getBalance()); // Output: 500.0 (The balance remains unchanged)
 ```
 
 ## 3. Inheritance
@@ -115,26 +102,39 @@ Inheritance allows a class (child/subclass) to inherit properties and methods fr
 **Example:**  
 
 ```java
-// Parent class
-public class Animal {
-    public void eat() {
-        System.out.println("This animal eats food.");
+// Parent class with common attributes and methods
+public class Person {
+    String name;
+    String id;
+
+    public Person(String name, String id) {
+        this.name = name;
+        this.id = id;
+    }
+
+    public void displayInfo() {
+        System.out.println("Name: " + name + ", ID: " + id);
     }
 }
 
+// Child class "inherits" from Person
+public class FullTimeEmployee extends Person {
+    private double annualSalary;
 
-// Child class extending Animal
-public class Dog extends Animal {
-    public void bark() {
-        System.out.println("The dog barks.");
+    public FullTimeEmployee(String name, String id, double annualSalary) {
+        // "super" calls the parent class constructor
+        super(name, id);
+        this.annualSalary = annualSalary;
     }
 }
 
-public class Main {
-    public static void main(String[] args) {
-        Dog myDog = new Dog();
-        myDog.eat();   // Inherited method from Animal
-        myDog.bark();  // Method specific to Dog
+// Another child class "inherits" from Person
+public class Contractor extends Person {
+    private double hourlyRate;
+
+    public Contractor(String name, String id, double hourlyRate) {
+        super(name, id);
+        this.hourlyRate = hourlyRate;
     }
 }
 ```
@@ -149,22 +149,6 @@ Method Overloading
 
 Method overloading occurs when multiple methods in the same class share the same name but have different parameter lists.
 
-**Example:**  
-
-```java
-public class Calculator {
-    // Method to add two integers
-    public int add(int a, int b) {
-        return a + b;
-    }
-    
-    // Overloaded method to add two doubles
-    public double add(double a, double b) {
-        return a + b;
-    }
-}
-```
-
 Method Overriding
 
 **Concept:**  
@@ -174,26 +158,55 @@ Method overriding happens when a subclass provides its own implementation of a m
 
 ```java
 
-public class Animal {
-    public void sound() {
-        System.out.println("Some generic animal sound");
-    }
+// Let's modify the parent and child classes slightly
+public abstract class Person { // Made abstract to enforce calculatePay
+    String name;
+    String id;
+    //... constructor ...
+
+    // Abstract method must be implemented by children
+    public abstract double calculateMonthlyPay();
 }
 
-public class Cat extends Animal {
+public class FullTimeEmployee extends Person {
+    private double annualSalary;
+    //... constructor ...
+
     @Override
-    public void sound() {
-        System.out.println("Meow");
+    public double calculateMonthlyPay() {
+        return annualSalary / 12;
     }
 }
 
-public class Main {
-    public static void main(String[] args) {
-        Animal myAnimal = new Cat();
-      
-        myAnimal.sound();  // Outputs: Meow
+public class Contractor extends Person {
+    private double hourlyRate;
+    private int hoursWorked;
+    //... constructor and a setter for hoursWorked...
+
+    @Override
+    public double calculateMonthlyPay() {
+        return hourlyRate * hoursWorked;
     }
 }
+
+// The power of polymorphism in action:
+public class PayrollProcessor {
+    public void process(Person person) {
+        // The *same* line of code behaves differently based on the object type.
+        // We don't need to know if it's a FullTimeEmployee or a Contractor.
+        double pay = person.calculateMonthlyPay();
+        System.out.println("Processing pay for " + person.name + ": $" + pay);
+    }
+}
+
+// How it's used:
+// PayrollProcessor processor = new PayrollProcessor();
+// Person emp = new FullTimeEmployee("Jane Doe", "E123", 120000);
+// Person con = new Contractor("John Smith", "C456", 75);
+// ((Contractor)con).setHoursWorked(100); // Set hours for the contractor
+
+// processor.process(emp); // Executes FullTimeEmployee's calculateMonthlyPay
+// processor.process(con); // Executes Contractor's calculateMonthlyPay
 ```
 
 ## 5. Abstraction
@@ -206,28 +219,6 @@ Abstract Classes
 **Concept:**  
 An abstract class cannot be instantiated and can include abstract methods (without implementations) that must be defined by its subclasses.
 
-**Example:**  
-
-```java
-
-public abstract class Shape {
-    // Abstract method to calculate area
-    public abstract double area();
-}
-
-public class Circle extends Shape {
-    private double radius;
-    
-    public Circle(double radius) {
-        this.radius = radius;
-    }
-    
-    @Override
-    public double area() {
-        return Math.PI * radius * radius;
-    }
-}
-```
 
 Interfaces
 
@@ -237,22 +228,45 @@ Interfaces declare a contract by specifying abstract methods that implementing c
 **Example:** 
 
 ```java
-public interface Drawable {
-    void draw();
+// The "contract" is defined using an interface (pure abstraction)
+public interface DataService {
+    // Any class implementing this interface MUST provide this functionality.
+    // It hides *how* the connection is made or data is fetched.
+    String fetchData(String query);
+    boolean connect(String connectionString);
 }
 
-public class Rectangle implements Drawable {
-    private int width;
-    private int height;
-    
-    public Rectangle(int width, int height) {
-        this.width = width;
-        this.height = height;
-    }
-    
+// Concrete implementation for a database
+public class OracleDatabaseService implements DataService {
     @Override
-    public void draw() {
-        System.out.println("Drawing Rectangle");
+    public boolean connect(String connectionString) {
+        System.out.println("Connecting to Oracle DB at " + connectionString);
+        // Add complex Oracle JDBC connection logic here...
+        return true;
+    }
+
+    @Override
+    public String fetchData(String query) {
+        System.out.println("Executing Oracle SQL query: " + query);
+        // Add logic to fetch and format data from Oracle...
+        return "{\"data\": \"some data from Oracle\"}";
+    }
+}
+
+// Concrete implementation for a REST API
+public class RestApiService implements DataService {
+    @Override
+    public boolean connect(String apiUrl) {
+        System.out.println("Initializing HTTP client for " + apiUrl);
+        // Add complex REST client setup logic here...
+        return true;
+    }
+
+    @Override
+    public String fetchData(String endpoint) {
+        System.out.println("Calling REST endpoint: " + endpoint);
+        // Add logic to make HTTP call and get response...
+        return "{\"data\": \"some data from a REST API\"}";
     }
 }
 ```
