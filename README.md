@@ -145,8 +145,8 @@ public class Contractor extends Person {
 Polymorphism allows objects to be treated as instances of their parent class, letting a single interface represent different underlying forms (data types).
 
 Method Overloading
-**Concept:**  
 
+**Concept:**  
 Method overloading occurs when multiple methods in the same class share the same name but have different parameter lists.
 
 Method Overriding
