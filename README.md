@@ -29,10 +29,10 @@ This document provides a comprehensive overview of core Object-Oriented Programm
 |------------------------|----------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
 | **Class**             | Blueprint for creating objects that encapsulate data and behavior               | Using the `class` keyword                                                               |
 | **Object**            | Instance of a class; represents a real-world entity                            | Instantiated using the `new` keyword                                                    |
-| **Encapsulation**     | Hiding internal state and requiring access through methods                     | `private` fields + `public` getter/setter methods                                       |
-| **Inheritance**       | One class inherits properties and behaviors from another class                 | Using the `extends` keyword for classes                                                 |
-| **Polymorphism**      | One interface, many implementations (same method behaves differently)          | Method **overloading** and **overriding**, dynamic method dispatch                      |
-| **Abstraction**       | Hiding implementation details and showing only essential features              | Using **abstract classes** (`abstract` keyword) and **interfaces** (`interface` keyword)|
+| **Encapsulation**     | Hiding internal state and requiring access through methods <br> `Code Security, Flexibility & Maintainability` |  `private` fields + `public` getter/setter methods                                       |
+| **Inheritance**       | One class inherits properties and behaviors from another class  <br> `Code Reuse` | Using the `extends` keyword for classes                                                 |
+| **Polymorphism**      | One interface, many implementations (same method behaves differently)  <br> `Flexibility and Extensibility` | Method **overloading** and **overriding**, dynamic method dispatch                      |
+| **Abstraction**       | Hiding implementation details and showing only essential features   <br> `Decoupling & Simplicity` | Using **abstract classes** (`abstract` keyword) and **interfaces** (`interface` keyword)|
 | **Method Overloading**| Compile-time polymorphism; multiple methods with the same name but different parameters | Defining multiple methods in the same class with different signatures                   |
 | **Method Overriding** | Run-time polymorphism; subclass provides specific implementation              | Using `@Override` annotation and redefining parent methods in child classes             |
 | **Composition**       | Strong "has-a" relationship; contained object cannot exist without the container| Declaring other class objects as fields and instantiating them inside the class         |
